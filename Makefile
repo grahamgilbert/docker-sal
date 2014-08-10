@@ -27,3 +27,11 @@ clean:
 	docker stop $(NAME)
 	docker rm $(NAME)
 	docker rmi ${DOCKER_USER}/${NAME}
+
+postgres:
+	mkdir -p /tmp/postgres
+	docker run --name="${DB_CONTAINER_NAME}" -d -v /tmp/postgres/:/var/lib/postgresql postgres
+
+postgres-clean:
+	docker stop $(DB_CONTAINER_NAME)
+	docker rm $(DB_CONTAINER_NAME)

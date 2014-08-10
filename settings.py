@@ -7,11 +7,7 @@ APPEND_SLASH=False
 PROJECT_DIR = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), os.path.pardir))
 
 AUTH_PROFILE_MODULE = "sal.UserProfile"
-DISPLAY_NAME = 'Sal'
 MANAGERS = ADMINS
-
-# The order plugins (if they're able to be shown on that particular page) will be displayed in. If not listed here, will be listed alphabetically after.
-PLUGIN_ORDER = ['Activity','Status','OperatingSystem','Uptime', 'Memory']
 
 # Only show these plugins on the front page - some things only the admins should see.
 LIMIT_PLUGIN_TO_FRONT_PAGE = []

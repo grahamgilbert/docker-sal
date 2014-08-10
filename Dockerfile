@@ -10,7 +10,9 @@ ENV APP_DIR /home/app/sal
 ENV TZ Europe/London
 ENV DOCKER_SAL_TZ Europe/London
 ENV DOCKER_SAL_ADMINS Docker User, docker@localhost
-ENV DOCKER_CRYPT_LANG en_GB
+ENV DOCKER_SAL_LANG en_GB
+ENV DOCKER_SAL_DISPLAY_NAME Sal
+ENV DOCKER_SAL_PLUGIN_ORDER Activity,Status,OperatingSystem,Uptime,Memor'
 
 # Use baseimage-docker's init process.
 CMD ["/sbin/my_init"]

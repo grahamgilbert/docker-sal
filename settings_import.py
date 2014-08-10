@@ -47,3 +47,16 @@ if getenv('DOCKER_SAL_ALLOWED'):
     ALLOWED_HOSTS = getenv('DOCKER_SAL_ALLOWED').split(',')
 else:
     ALLOWED_HOSTS = ['*']
+
+# Set the display name from the $DOCKER_SAL_DISPLAY_NAME env var, or
+# use the default
+if getenv('DOCKER_SAL_DISPLAY_NAME'):
+    DISPLAY_NAME = getenv('DOCKER_SAL_DISPLAY_NAME')
+else:
+    DISPLAY_NAME = 'Sal'
+
+# The order plugins (if they're able to be shown on that particular page) will be displayed in. If not listed here, will be listed alphabetically after.
+if getenv('DOCKER_SAL_PLUGIN_ORDER'):
+    PLUGIN_ORDER = getenv('DOCKER_SAL_PLUGIN_ORDER').split(',')
+else:
+    PLUGIN_ORDER = ['Activity','Status','OperatingSystem','Uptime', 'Memory']
