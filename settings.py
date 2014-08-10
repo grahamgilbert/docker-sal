@@ -1,5 +1,5 @@
 # Django settings for sal project.
-from settings_import import ADMINS, TIME_ZONE, LANGUAGE_CODE, ALLOWED_HOSTS
+from settings_import import ADMINS, TIME_ZONE, LANGUAGE_CODE, ALLOWED_HOSTS, DISPLAY_NAME, PLUGIN_ORDER
 import os
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG

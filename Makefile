@@ -30,7 +30,7 @@ clean:
 
 postgres:
 	mkdir -p /tmp/postgres
-	docker run --name="${DB_CONTAINER_NAME}" -d -v /tmp/postgres/:/var/lib/postgresql postgres
+	docker run --name="${DB_CONTAINER_NAME}" -d --volumes-from sal_data postgres
 
 postgres-clean:
 	docker stop $(DB_CONTAINER_NAME)
