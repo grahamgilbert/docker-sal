@@ -2,8 +2,7 @@ macadmins-sal
 =============
 
 This Docker container runs [Sal](https://github.com/grahamgilbert/sal).
-The container expects a linked PostgreSQL database container and that your munki repo is mounted
-in /munki_repo
+The container expects a linked PostgreSQL database container.
 
 Several options, such as the timezone and admin password are customizable using environment variables.
 
@@ -21,8 +20,8 @@ The official guide on [linking containers](https://docs.docker.com/userguide/doc
 
 ```bash
 $ docker pull postgres
-$ docker run --name="postgres-sal" -d postgres
-# Edit the setup.db scrip from the github repo to change the database name, user and password before running it.
+$ docker run --name="postgres-sal" -d -v /usr/local/sal_data/db:/var/lib/postgresql/data postgres
+# Edit the setup.db script from the github repo to change the database name, user and password before running it.
 $ ./setup_db.sh
 ```
 

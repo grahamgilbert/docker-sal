@@ -12,7 +12,7 @@ DOCKER_RUN_COMMON=--name="$(NAME)" -p ${SAL_PORT}:8000 --link $(DB_CONTAINER_NAM
 all: build
 
 build:
-	docker build --no-cache=true -t="${DOCKER_USER}/sal" .
+	docker build --no-cache=true -t="${DOCKER_USER}/${NAME}" .
 
 run:
 	docker run -d ${DOCKER_RUN_COMMON}
@@ -26,12 +26,17 @@ bash:
 clean:
 	docker stop $(NAME)
 	docker rm $(NAME)
+
+rmi:
 	docker rmi ${DOCKER_USER}/${NAME}
 
 postgres:
-	mkdir -p /tmp/postgres
-	docker run --name="${DB_CONTAINER_NAME}" -d --volumes-from sal_data postgres
+	mkdir -p /Users/Shared/postgres
+	docker run --name="${DB_CONTAINER_NAME}" -d -v /Users/Shared/postgres:/var/lib/postgresql/data postgres
 
 postgres-clean:
 	docker stop $(DB_CONTAINER_NAME)
 	docker rm $(DB_CONTAINER_NAME)
+
+datastore:
+	docker run --name="sal_data" -d grahamgilbert/pg_datastore

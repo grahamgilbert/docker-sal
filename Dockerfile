@@ -40,8 +40,6 @@ ADD run.sh /etc/my_init.d/run.sh
 RUN rm -f /etc/service/nginx/down
 RUN rm -f /etc/nginx/sites-enabled/default
 
-#ADD initial_data.json /usr/local/sal_env/sal/
-
 EXPOSE 8000
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
