@@ -6,12 +6,16 @@ DB_PASS=password
 DB_USER=admin
 DB_CONTAINER_NAME:=postgres-sal
 NAME:=sal
-DOCKER_RUN_COMMON=--name="$(NAME)" -p ${SAL_PORT}:8000 --link $(DB_CONTAINER_NAME):db -e ADMIN_PASS=${ADMIN_PASS} -e DB_NAME=$(DB_NAME) -e DB_USER=$(DB_USER) -e DB_PASS=$(DB_PASS) ${DOCKER_USER}/sal
+PLUGIN_DIR=/tmp/plugins
+DOCKER_RUN_COMMON=--name="$(NAME)" -p ${SAL_PORT}:8000 --link $(DB_CONTAINER_NAME):db -e ADMIN_PASS=${ADMIN_PASS} -e DB_NAME=$(DB_NAME) -e DB_USER=$(DB_USER) -e DB_PASS=$(DB_PASS) -v ${PLUGIN_DIR}:/home/app/sal/plugins ${DOCKER_USER}/sal
 
 
 all: build
 
 build:
+	docker build -t="${DOCKER_USER}/${NAME}" .
+
+build-nocache:
 	docker build --no-cache=true -t="${DOCKER_USER}/${NAME}" .
 
 run:

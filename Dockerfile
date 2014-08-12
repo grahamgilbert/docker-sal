@@ -42,4 +42,6 @@ RUN rm -f /etc/nginx/sites-enabled/default
 
 EXPOSE 8000
 
+VOLUME ["$APPDIR/plugins"]
+
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
