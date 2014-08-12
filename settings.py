@@ -17,7 +17,7 @@ HIDE_PLUGIN_FROM_FRONT_PAGE = []
 
 # Hide these plugins from the specified business units
 HIDE_PLUGIN_FROM_BUSINESS_UNIT = {
-    'Encryption':['1']
+    #'Encryption':['1']
 }
 
 # Hide these plugins from the specified machine groups
