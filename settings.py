@@ -1,7 +1,7 @@
 # Django settings for sal project.
 from settings_import import ADMINS, TIME_ZONE, LANGUAGE_CODE, ALLOWED_HOSTS, DISPLAY_NAME, PLUGIN_ORDER
 import os
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 APPEND_SLASH=False
 PROJECT_DIR = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), os.path.pardir))
