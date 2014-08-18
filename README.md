@@ -1,7 +1,7 @@
 macadmins-sal
 =============
 
-This Docker container runs [Sal](https://github.com/grahamgilbert/sal). The container expects a linked PostgreSQL database container.
+This Docker image runs [Sal](https://github.com/grahamgilbert/sal). The container expects a linked PostgreSQL database container.
 
 # Settings
 
