@@ -1,7 +1,8 @@
 # Sal Dockerfile
+# Version 0.3
 FROM phusion/passenger-customizable:0.9.11
 
-MAINTAINER Pepijn Bruienne, Graham Gilbert version: 0.2
+MAINTAINER Graham Gilbert <graham@grahamgilbert.com>
 
 ENV HOME /root
 ENV DEBIAN_FRONTEND noninteractive
@@ -12,7 +13,7 @@ ENV DOCKER_SAL_TZ Europe/London
 ENV DOCKER_SAL_ADMINS Docker User, docker@localhost
 ENV DOCKER_SAL_LANG en_GB
 ENV DOCKER_SAL_DISPLAY_NAME Sal
-ENV DOCKER_SAL_PLUGIN_ORDER Activity,Status,OperatingSystem,Uptime,Memory'
+ENV DOCKER_SAL_PLUGIN_ORDER Activity,Status,OperatingSystem,Uptime,Memory
 
 # Use baseimage-docker's init process.
 CMD ["/sbin/my_init"]
@@ -42,6 +43,6 @@ RUN rm -f /etc/nginx/sites-enabled/default
 
 EXPOSE 8000
 
-VOLUME ["$APPDIR/plugins"]
+VOLUME ["$APPDIR/plugins", "$APPDIR/sal/settings.py"]
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
