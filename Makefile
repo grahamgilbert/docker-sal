@@ -35,8 +35,8 @@ rmi:
 	docker rmi ${DOCKER_USER}/${NAME}
 
 postgres:
-	mkdir -p /Users/Shared/postgres
-	docker run --name="${DB_CONTAINER_NAME}" -d -v /Users/Shared/postgres:/var/lib/postgresql/data postgres
+	mkdir -p /tmp/postgres
+	docker run --name="${DB_CONTAINER_NAME}" -d -v /tmp/postgres:/var/lib/postgresql/data postgres
 
 postgres-clean:
 	docker stop $(DB_CONTAINER_NAME)

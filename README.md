@@ -36,6 +36,8 @@ $ docker pull postgres
 $ docker run --name="postgres-sal" -d -v /usr/local/sal_data/db:/var/lib/postgresql/data postgres
 # Edit the setup.db script from the github repo to change the database name, user and password before running it.
 $ ./setup_db.sh
+# Or, if you're using the defaults of admin and password
+$ bash <(curl -s https://raw.githubusercontent.com/macadmins/sal/master/setup_db.sh)
 ```
 
 #Running the Sal Container
