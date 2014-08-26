@@ -15,21 +15,26 @@ Several options, such as the timezone and admin password are customizable using 
 
 If you require more advanced settings, for example if you want to hide certain plugins from certain Business Units or if you have a plugin that needs settings, you can override ``settings.py`` with your own. A good starting place can be found on this image's [Github repository](https://github.com/grahamgilbert/macadmins-sal/blob/master/settings.py).
 
+```
+  -v /usr/local/sal_data/settings/settings.py:/home/app/sal/sal/settings.py
+  ```
+
 # Plugins
 
-The plugins directory is exposed as a volume to the host, so you can add your own plugins. 
+The plugins directory is exposed as a volume to the host, so you can add your own plugins using the ``-v`` option to link to ``/home/app/sal/plugins`` in the container. 
+
+```
+  -v /usr/local/sal_data/plugins:/home/app/sal/plugins
+  ```
 
 #Postgres container
 
-You must run the PostgreSQL container before running the Sal container.
-Currently there is support only for PostgreSQL.
-I use the [stackbrew postgres container](https://registry.hub.docker.com/_/postgres/) from the Docker Hub, but you can use your own. The app container expects the following environment variables to connect to a database:
+Out of the box, Sal uses a SQLite database, however if you are running it in a production environment, it is recommended that you use a Postgres Database.
+I use the [Stackbrew Postgres container](https://registry.hub.docker.com/_/postgres/) from the Docker Hub, but you can use your own if you have particular requirements. The app container expects the following environment variables to connect to a database:
 
 * ``DB_NAME``
 * ``DB_USER``
 * ``DB_PASS``
-
-See [this blog post](http://davidamick.wordpress.com/2014/07/19/docker-postgresql-workflow/) for an example for an example workflow using the postgres container. The setup_db.sh script in the GitHub repo will create the database tables for you. The official guide on [linking containers](https://docs.docker.com/userguide/dockerlinks/) is also very helpful.
 
 ```bash
 $ docker pull postgres
@@ -40,14 +45,14 @@ $ ./setup_db.sh
 $ bash <(curl -s https://raw.githubusercontent.com/macadmins/sal/master/setup_db.sh)
 ```
 
+See [this blog post](http://davidamick.wordpress.com/2014/07/19/docker-postgresql-workflow/) for an example for an example workflow using the postgres container. The setup_db.sh script in the GitHub repo will create the database tables for you. The official guide on [linking containers](https://docs.docker.com/userguide/dockerlinks/) is also very helpful.
+
 #Running the Sal Container
 
 ```bash
 $ docker run -d --name="sal" \
   -p 80:8000 \
   --link postgres-sal:db \
-  -v /usr/local/sal_data/plugins:/home/app/sal/plugins \
-  -v /usr/local/sal_data/settings/settings.py:/home/app/sal/sal/settings.py \
   -e ADMIN_PASS=pass \
   -e DB_NAME=sal \
   -e DB_USER=admin \
