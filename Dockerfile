@@ -33,6 +33,7 @@ RUN pip install psycopg2==2.5.3
 RUN mkdir -p /etc/my_init.d
 ADD nginx/nginx-env.conf /etc/nginx/main.d/
 ADD nginx/sal.conf /etc/nginx/sites-enabled/sal.conf
+ADD nginx/nginx.conf /etc/nginx/nginx.conf
 ADD settings.py $APP_DIR/sal/
 ADD settings_import.py $APP_DIR/sal/
 ADD passenger_wsgi.py $APP_DIR/
