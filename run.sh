@@ -12,7 +12,11 @@ else
   python manage.py update_admin_user --username=admin --password=password
 fi
 
-chown -R app:app $APP_DIR
+chown -R www-data:www-data $APP_DIR
 chmod go+x $APP_DIR
-
-#service nginx restart
+mkdir -p /var/log/gunicorn
+export PYTHONPATH=$PYTHONPATH:$APP_DIR
+export DJANGO_SETTINGS_MODULE='sal.settings'
+#export SECRET_KEY='no-so-secret' # Fix for your own site!
+# chdir /var/www/django/sd_sample_project/sd_sample_project
+supervisord --nodaemon
