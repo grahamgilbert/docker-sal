@@ -16,15 +16,15 @@ Several options, such as the timezone and admin password are customizable using 
 If you require more advanced settings, for example if you want to hide certain plugins from certain Business Units or if you have a plugin that needs settings, you can override ``settings.py`` with your own. A good starting place can be found on this image's [Github repository](https://github.com/grahamgilbert/macadmins-sal/blob/master/settings.py).
 
 ```
-  -v /usr/local/sal_data/settings/settings.py:/home/app/sal/sal/settings.py
+  -v /usr/local/sal_data/settings/settings.py:/home/docker/sal/sal/settings.py
   ```
 
 # Plugins
 
-The plugins directory is exposed as a volume to the host, so you can add your own plugins using the ``-v`` option to link to ``/home/app/sal/plugins`` in the container. 
+The plugins directory is exposed as a volume to the host, so you can add your own plugins using the ``-v`` option to link to ``/home/docker/sal/plugins`` in the container. 
 
 ```
-  -v /usr/local/sal_data/plugins:/home/app/sal/plugins
+  -v /usr/local/sal_data/plugins:/home/docker/sal/plugins
   ```
 
 #Postgres container
