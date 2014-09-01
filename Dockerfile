@@ -1,13 +1,13 @@
 # Sal Dockerfile
 # Version 0.3
-FROM phusion/passenger-customizable:0.9.11
+FROM ubuntu:14.04.1
 
 MAINTAINER Graham Gilbert <graham@grahamgilbert.com>
 
 ENV HOME /root
 ENV DEBIAN_FRONTEND noninteractive
 ENV APPNAME Sal
-ENV APP_DIR /home/app/sal
+ENV APP_DIR /home/docker/sal
 ENV TZ Europe/London
 ENV DOCKER_SAL_TZ Europe/London
 ENV DOCKER_SAL_ADMINS Docker User, docker@localhost
@@ -15,32 +15,45 @@ ENV DOCKER_SAL_LANG en_GB
 ENV DOCKER_SAL_DISPLAY_NAME Sal
 ENV DOCKER_SAL_PLUGIN_ORDER Activity,Status,OperatingSystem,Uptime,Memory
 
-# Use baseimage-docker's init process.
-CMD ["/sbin/my_init"]
+RUN apt-get update
+RUN apt-get install -y software-properties-common
+RUN add-apt-repository ppa:nginx/stable
+
 RUN apt-get -y update
-RUN /build/utilities.sh
-RUN /build/python.sh
+
 
 RUN apt-get -y install \
+    git \
     python-setuptools \
+    nginx \
+    postgresql \
+    postgresql-contrib \
     libpq-dev \
     python-dev \
+    supervisor \
+    nano \
     && easy_install pip
 
 RUN git clone https://github.com/grahamgilbert/sal.git $APP_DIR
 RUN pip install -r $APP_DIR/setup/requirements.txt
 RUN pip install psycopg2==2.5.3
-RUN mkdir -p /etc/my_init.d
+RUN pip install gunicorn
+RUN pip install setproctitle
 ADD nginx/nginx-env.conf /etc/nginx/main.d/
 ADD nginx/sal.conf /etc/nginx/sites-enabled/sal.conf
 ADD nginx/nginx.conf /etc/nginx/nginx.conf
 ADD settings.py $APP_DIR/sal/
 ADD settings_import.py $APP_DIR/sal/
-ADD passenger_wsgi.py $APP_DIR/
+ADD wsgi.py $APP_DIR/
+ADD gunicorn_config.py $APP_DIR/
 ADD django/management/ $APP_DIR/sal/management/
-ADD run.sh /etc/my_init.d/run.sh
-RUN rm -f /etc/service/nginx/down
+ADD run.sh /run.sh
+ADD supervisord.conf /etc/supervisor/supervisord.conf
+RUN update-rc.d -f postgresql remove
+RUN update-rc.d -f nginx remove
 RUN rm -f /etc/nginx/sites-enabled/default
+
+CMD ["/run.sh"]
 
 EXPOSE 8000
 
