@@ -57,6 +57,7 @@ CMD ["/run.sh"]
 
 EXPOSE 8000
 
-VOLUME ["$APPDIR/plugins", "$APPDIR/sal/settings.py"]
-
+VOLUME ["$APP_DIR/plugins", "$APP_DIR/sal/settings.py"]
+RUN mkdir -p /home/app
+RUN ln -s $APP_DIR /home/app/sal
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
