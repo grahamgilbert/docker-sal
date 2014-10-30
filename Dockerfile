@@ -34,7 +34,7 @@ RUN apt-get -y install \
     nano \
     && easy_install pip
 
-RUN git clone -b sal2 https://github.com/salsoftware/sal.git $APP_DIR
+RUN git clone https://github.com/salsoftware/sal.git $APP_DIR
 RUN pip install -r $APP_DIR/setup/requirements.txt
 RUN pip install psycopg2==2.5.3
 RUN pip install gunicorn
