@@ -57,7 +57,7 @@ CMD ["/run.sh"]
 
 EXPOSE 8000
 
-VOLUME ["$APP_DIR/plugins", "$APP_DIR/sal/settings.py"]
+#VOLUME ["$APP_DIR/plugins", "$APP_DIR/sal/settings.py"]
 RUN mkdir -p /home/app
 RUN mkdir -p /home/backup
 RUN ln -s $APP_DIR /home/app/sal
