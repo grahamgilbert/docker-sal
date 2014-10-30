@@ -185,8 +185,12 @@ INSTALLED_APPS = (
     'sal',
     'server',
     'south',
-    'bootstrap_toolkit',
+    'bootstrap3',
 )
+
+BOOTSTRAP3 = {
+    'set_placeholder': False,
+}
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

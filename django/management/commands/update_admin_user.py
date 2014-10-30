@@ -38,4 +38,4 @@ class Command(BaseCommand):
             user.save()
             print('{0} updated'.format(username))
         else:
-            print('There are already {0} suerusers'.format(su_count))
+            print('There are already {0} superusers'.format(su_count))

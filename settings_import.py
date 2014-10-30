@@ -59,4 +59,4 @@ else:
 if getenv('DOCKER_SAL_PLUGIN_ORDER'):
     PLUGIN_ORDER = getenv('DOCKER_SAL_PLUGIN_ORDER').split(',')
 else:
-    PLUGIN_ORDER = ['Activity','Status','OperatingSystem','Uptime', 'Memory']
+    PLUGIN_ORDER = ['Activity','Status', 'MunkiVersion','OperatingSystem','Uptime', 'Memory']

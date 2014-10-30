@@ -34,7 +34,7 @@ RUN apt-get -y install \
     nano \
     && easy_install pip
 
-RUN git clone https://github.com/grahamgilbert/sal.git $APP_DIR
+RUN git clone -b sal2 https://github.com/salsoftware/sal.git $APP_DIR
 RUN pip install -r $APP_DIR/setup/requirements.txt
 RUN pip install psycopg2==2.5.3
 RUN pip install gunicorn
@@ -59,5 +59,6 @@ EXPOSE 8000
 
 VOLUME ["$APP_DIR/plugins", "$APP_DIR/sal/settings.py"]
 RUN mkdir -p /home/app
+RUN mkdir -p /home/backup
 RUN ln -s $APP_DIR /home/app/sal
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
