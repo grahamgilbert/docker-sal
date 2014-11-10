@@ -48,7 +48,7 @@ ADD wsgi.py $APP_DIR/
 ADD gunicorn_config.py $APP_DIR/
 ADD django/management/ $APP_DIR/sal/management/
 ADD run.sh /run.sh
-ADD supervisord.conf /etc/supervisor/supervisord.conf
+ADD supervisord.conf $APP_DIR/supervisord.conf
 RUN update-rc.d -f postgresql remove
 RUN update-rc.d -f nginx remove
 RUN rm -f /etc/nginx/sites-enabled/default

@@ -19,4 +19,4 @@ export PYTHONPATH=$PYTHONPATH:$APP_DIR
 export DJANGO_SETTINGS_MODULE='sal.settings'
 #export SECRET_KEY='no-so-secret' # Fix for your own site!
 # chdir /var/www/django/sd_sample_project/sd_sample_project
-supervisord --nodaemon
+supervisord --nodaemon -c $APP_DIR/supervisord.conf

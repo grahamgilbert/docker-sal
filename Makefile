@@ -7,7 +7,7 @@ DB_USER=admin
 DB_CONTAINER_NAME:=postgres-sal
 NAME:=sal
 PLUGIN_DIR=/tmp/plugins
-DOCKER_RUN_COMMON=--name="$(NAME)" -p ${SAL_PORT}:8000 --link $(DB_CONTAINER_NAME):db -e ADMIN_PASS=${ADMIN_PASS} -e DB_NAME=$(DB_NAME) -e DB_USER=$(DB_USER) -e DB_PASS=$(DB_PASS) -v ${PLUGIN_DIR}:/home/app/sal/plugins ${DOCKER_USER}/sal
+DOCKER_RUN_COMMON=--name="$(NAME)" -p ${SAL_PORT}:8000 --link $(DB_CONTAINER_NAME):db -e ADMIN_PASS=${ADMIN_PASS} -e DB_NAME=$(DB_NAME) -e DB_USER=$(DB_USER) -e DB_PASS=$(DB_PASS) -v ${PLUGIN_DIR}:/home/app/sal/plugins -v /tmp/logs:/var/log/nginx ${DOCKER_USER}/sal
 
 
 all: build
@@ -36,11 +36,8 @@ rmi:
 
 postgres:
 	mkdir -p /tmp/postgres
-	docker run --name="${DB_CONTAINER_NAME}" -d -v /tmp/postgres:/var/lib/postgresql/data postgres
+	docker run --name="${DB_CONTAINER_NAME}" -d -e DB_NAME=$(DB_NAME) -e DB_USER=$(DB_USER) -e DB_PASS=$(DB_PASS) -v /tmp/postgres:/var/lib/postgresql/data grahamgilbert/postgres
 
 postgres-clean:
 	docker stop $(DB_CONTAINER_NAME)
 	docker rm $(DB_CONTAINER_NAME)
-
-datastore:
-	docker run --name="sal_data" -d grahamgilbert/pg_datastore
