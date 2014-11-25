@@ -30,19 +30,21 @@ The plugins directory is exposed as a volume to the host, so you can add your ow
 #Postgres container
 
 Out of the box, Sal uses a SQLite database, however if you are running it in a production environment, it is recommended that you use a Postgres Database.
-I use the [Stackbrew Postgres container](https://registry.hub.docker.com/_/postgres/) from the Docker Hub, but you can use your own if you have particular requirements. The app container expects the following environment variables to connect to a database:
+I have created a Postgres container that is set up ready to use with Sal - just tell it where you want to store your data, and pass it some environment variables for the database name, username and password.
 
 * ``DB_NAME``
 * ``DB_USER``
 * ``DB_PASS``
 
 ```bash
-$ docker pull postgres
-$ docker run --name="postgres-sal" -d -v /usr/local/sal_data/db:/var/lib/postgresql/data postgres
-# Edit the setup.db script from the github repo to change the database name, user and password before running it.
-$ ./setup_db.sh
-# Or, if you're using the defaults of admin and password
-$ bash <(curl -s https://raw.githubusercontent.com/macadmins/sal/master/setup_db.sh)
+$ docker pull grahamgilbert/postgres
+$ docker run -d --name="postgres-sal" \
+  -v /db:/var/lib/postgresql/data \
+  -e DB_NAME=sal \
+  -e DB_USER=admin \
+  -e DB_PASS=password \
+  --restart="always" \
+  grahamgilbert/postgres
 ```
 
 See [this blog post](http://davidamick.wordpress.com/2014/07/19/docker-postgresql-workflow/) for an example for an example workflow using the postgres container. The setup_db.sh script in the GitHub repo will create the database tables for you. The official guide on [linking containers](https://docs.docker.com/userguide/dockerlinks/) is also very helpful.
@@ -57,6 +59,7 @@ $ docker run -d --name="sal" \
   -e DB_NAME=sal \
   -e DB_USER=admin \
   -e DB_PASS=password \
+  --restart="always" \
   macadmins/sal
 ```
 
