@@ -15,30 +15,28 @@ ENV DOCKER_SAL_LANG en_GB
 ENV DOCKER_SAL_DISPLAY_NAME Sal
 ENV DOCKER_SAL_PLUGIN_ORDER Activity,Status,OperatingSystem,Uptime,Memory
 
-RUN apt-get update
-RUN apt-get install -y software-properties-common
-RUN add-apt-repository ppa:nginx/stable
-
-RUN apt-get -y update
-
-
-RUN apt-get -y install \
-    git \
-    python-setuptools \
-    nginx \
-    postgresql \
-    postgresql-contrib \
-    libpq-dev \
-    python-dev \
-    supervisor \
-    nano \
-    && easy_install pip
+RUN apt-get update && \
+    apt-get install -y software-properties-common && \
+    add-apt-repository ppa:nginx/stable && \ 
+    apt-get -y update && \
+    apt-get -y install && \
+    git && \
+    python-setuptools && \
+    nginx && \
+    postgresql && \
+    postgresql-contrib && \
+    libpq-dev && \
+    python-dev && \
+    supervisor && \
+    nano && \
+    easy_install pip
 
 RUN git clone https://github.com/salsoftware/sal.git $APP_DIR
 RUN pip install -r $APP_DIR/setup/requirements.txt
 RUN pip install psycopg2==2.5.3
 RUN pip install gunicorn
 RUN pip install setproctitle
+
 ADD nginx/nginx-env.conf /etc/nginx/main.d/
 ADD nginx/sal.conf /etc/nginx/sites-enabled/sal.conf
 ADD nginx/nginx.conf /etc/nginx/nginx.conf
