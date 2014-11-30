@@ -29,13 +29,15 @@ RUN apt-get update && \
     python-dev && \
     supervisor && \
     nano && \
-    easy_install pip
+    easy_install pip && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN git clone https://github.com/salsoftware/sal.git $APP_DIR
-RUN pip install -r $APP_DIR/setup/requirements.txt
-RUN pip install psycopg2==2.5.3
-RUN pip install gunicorn
-RUN pip install setproctitle
+RUN git clone https://github.com/salsoftware/sal.git $APP_DIR && \
+    pip install -r $APP_DIR/setup/requirements.txt && \
+    pip install psycopg2==2.5.3 && \
+    pip install gunicorn && \
+    pip install setproctitle
 
 ADD nginx/nginx-env.conf /etc/nginx/main.d/
 ADD nginx/sal.conf /etc/nginx/sites-enabled/sal.conf
@@ -47,16 +49,17 @@ ADD gunicorn_config.py $APP_DIR/
 ADD django/management/ $APP_DIR/sal/management/
 ADD run.sh /run.sh
 ADD supervisord.conf $APP_DIR/supervisord.conf
-RUN update-rc.d -f postgresql remove
-RUN update-rc.d -f nginx remove
-RUN rm -f /etc/nginx/sites-enabled/default
 
-CMD ["/run.sh"]
+RUN update-rc.d -f postgresql remove && \
+    update-rc.d -f nginx remove && \
+    rm -f /etc/nginx/sites-enabled/default && \
+    mkdir -p /home/app && \
+    mkdir -p /home/backup && \
+    ln -s $APP_DIR /home/app/sal
 
 EXPOSE 8000
 
+CMD ["/run.sh"]
+
 #VOLUME ["$APP_DIR/plugins", "$APP_DIR/sal/settings.py"]
-RUN mkdir -p /home/app
-RUN mkdir -p /home/backup
-RUN ln -s $APP_DIR /home/app/sal
-RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
