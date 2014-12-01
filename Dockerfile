@@ -17,23 +17,23 @@ ENV DOCKER_SAL_PLUGIN_ORDER Activity,Status,OperatingSystem,Uptime,Memory
 
 RUN apt-get update && \
     apt-get install -y software-properties-common && \
-    add-apt-repository ppa:nginx/stable && \ 
     apt-get -y update && \
-    apt-get -y install && \
-    git && \
-    python-setuptools && \
-    nginx && \
-    postgresql && \
-    postgresql-contrib && \
-    libpq-dev && \
-    python-dev && \
-    supervisor && \
+    add-apt-repository -y ppa:nginx/stable && \ 
+    apt-get -y install \
+    git \
+    python-setuptools \
+    nginx \
+    postgresql \
+    postgresql-contrib \
+    libpq-dev \
+    python-dev \
+    supervisor \
     nano && \
-    easy_install pip && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN git clone https://github.com/salsoftware/sal.git $APP_DIR && \
+RUN easy_install pip && \
+    git clone https://github.com/salsoftware/sal.git $APP_DIR && \
     pip install -r $APP_DIR/setup/requirements.txt && \
     pip install psycopg2==2.5.3 && \
     pip install gunicorn && \
