@@ -47,8 +47,6 @@ $ docker run -d --name="postgres-sal" \
   grahamgilbert/postgres
 ```
 
-See [this blog post](http://davidamick.wordpress.com/2014/07/19/docker-postgresql-workflow/) for an example for an example workflow using the postgres container. The setup_db.sh script in the GitHub repo will create the database tables for you. The official guide on [linking containers](https://docs.docker.com/userguide/dockerlinks/) is also very helpful.
-
 #Running the Sal Container
 
 ```bash
