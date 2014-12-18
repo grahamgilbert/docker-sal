@@ -1,4 +1,4 @@
-DOCKER_USER=grahamgilbert
+DOCKER_USER=macadmins
 ADMIN_PASS=pass
 SAL_PORT=8000
 DB_NAME=sal
