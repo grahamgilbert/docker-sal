@@ -34,7 +34,7 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN easy_install pip && \
-    git clone https://github.com/salsoftware/sal.git $APP_DIR && \
+    git clone https://github.com/salopensource/sal.git $APP_DIR && \
     pip install -r $APP_DIR/setup/requirements.txt && \
     pip install psycopg2==2.5.3 && \
     pip install gunicorn && \
